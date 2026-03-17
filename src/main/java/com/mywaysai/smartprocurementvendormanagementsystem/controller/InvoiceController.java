@@ -44,4 +44,14 @@ public class InvoiceController {
 //    }
 
 
+    @PutMapping("/{id}")
+    public Invoice update(@PathVariable Long id,@RequestBody Invoice invoice){
+        return service.update(id,invoice);
+    }
+
+    @DeleteMapping("/{id}")
+    public String delete(@PathVariable Long id){
+        service.delete(id);
+        return "Invoice Deleted";
+    }
 }

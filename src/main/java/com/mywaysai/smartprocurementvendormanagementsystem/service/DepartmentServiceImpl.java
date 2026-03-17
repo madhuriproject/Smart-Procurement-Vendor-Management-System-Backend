@@ -22,4 +22,26 @@ public class DepartmentServiceImpl implements DepartmentService {
     public List<Department> all(){
         return repository.findAll();
     }
+
+    @Override
+    public Department get(Long id) {
+        return repository.getById(id);
+    }
+
+    @Override
+    public Department update(Long id, Department d) {
+
+        Department existing = repository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Department not found"));
+
+        existing.setName(d.getName());
+        //existing.(d.getDescription());
+
+        return repository.save(existing);
+    }
+
+    @Override
+    public void delete(Long id) {
+        repository.deleteById(id);
+    }
 }

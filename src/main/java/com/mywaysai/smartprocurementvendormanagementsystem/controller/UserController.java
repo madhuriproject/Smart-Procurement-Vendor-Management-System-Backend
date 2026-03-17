@@ -15,7 +15,7 @@ import lombok.RequiredArgsConstructor;
 @RestController
 @RequestMapping("/users")
 //@RequestMapping("/api/auth")
-@CrossOrigin(origins = "http://localhost:5180")
+@CrossOrigin(origins = "http://localhost:5173")
 @RequiredArgsConstructor
 public class UserController {
 
@@ -34,5 +34,23 @@ public class UserController {
     @PostMapping("/auth/login")
     public ResponseEntity<LoginResponse> login(@RequestBody LoginRequest request) {
         return ResponseEntity.ok(service.login(request));
+    }
+
+    // GET BY ID
+    @GetMapping("/{id}")
+    public User getById(@PathVariable Long id){
+        return service.getById(id);
+    }
+
+    // UPDATE
+    @PutMapping("/{id}")
+    public User update(@PathVariable Long id, @RequestBody User u){
+        return service.update(id, u);
+    }
+
+    // DELETE
+    @DeleteMapping("/{id}")
+    public void delete(@PathVariable Long id){
+        service.delete(id);
     }
 }

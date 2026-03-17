@@ -30,4 +30,31 @@ public class VendorController {
     public Vendor approve(@PathVariable Long id){
         return service.approveVendor(id);
     }
+
+
+
+
+
+
+
+
+
+
+
+    @GetMapping("/{id}")
+    public Vendor getById(@PathVariable Long id){
+        return service.getById(id);
+    }
+
+
+    @PutMapping("/{id}")
+    public Vendor update(@PathVariable Long id,@RequestBody Vendor v){
+        return service.update(id,v);
+    }
+
+    @DeleteMapping("/{id}")
+    public String delete(@PathVariable Long id){
+        service.delete(id);
+        return "Vendor Deleted";
+    }
 }

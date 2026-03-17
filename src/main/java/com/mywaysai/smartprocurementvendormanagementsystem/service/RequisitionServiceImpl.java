@@ -1,9 +1,12 @@
 package com.mywaysai.smartprocurementvendormanagementsystem.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import com.mywaysai.smartprocurementvendormanagementsystem.entity.Item;
+import com.mywaysai.smartprocurementvendormanagementsystem.repository.ApprovalRepository;
 import com.mywaysai.smartprocurementvendormanagementsystem.repository.ItemRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
 import com.mywaysai.smartprocurementvendormanagementsystem.entity.Requisition;
@@ -44,5 +47,41 @@ public class RequisitionServiceImpl implements RequisitionService {
 
         return   repository.findAll();
 
+    }
+
+    @Override
+    public Optional<Requisition> getById(Long id) {
+        return repository.findById(id);
+    }
+
+
+    @Override
+    public Requisition update(Long id, Requisition r) {
+
+        Requisition existing = repository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Requisition not found"));
+
+        // update fields
+        existing.setItem(r.getItem());
+        existing.setQuantity(r.getQuantity());
+       // existing.setDescription(r.getDescription());
+        existing.setStatus(r.getStatus());
+
+        return repository.save(existing);
+    }
+
+
+
+    private final RequisitionRepository requisitionRepository;
+    private final ApprovalRepository approvalRepository;
+
+    @Transactional
+    public void delete(Long id){
+        requisitionRepository.deleteById(id);
+    }
+
+    @Override
+    public List<Requisition> getByStatus(String pending) {
+        return repository.findByStatus(pending);
     }
 }

@@ -62,5 +62,22 @@ public class InvoiceServiceImpl implements InvoiceService {
 //    public Invoice create(Invoice invoice) {
 //        return null;
 //    }
+
+
+
+    public Invoice update(Long id,Invoice invoice){
+
+        Invoice existing = invoiceRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Invoice not found"));
+
+        existing.setAmount(invoice.getAmount());
+      //  existing.set(invoice.get);
+
+        return invoiceRepository.save(existing);
+    }
+
+    public void delete(Long id){
+        invoiceRepository.deleteById(id);
+    }
 }
 

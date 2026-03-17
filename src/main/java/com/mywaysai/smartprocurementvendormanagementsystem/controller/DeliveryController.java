@@ -31,5 +31,12 @@ public class DeliveryController {
     public List<Delivery> getAll(){
         return service.getAll();
     }
+
+
+
+    @GetMapping("/requisition/{id}")
+    public List<Delivery> getByRequisition(@PathVariable Long id){
+        return service.getByRequisition(id);
+    }
 }
 

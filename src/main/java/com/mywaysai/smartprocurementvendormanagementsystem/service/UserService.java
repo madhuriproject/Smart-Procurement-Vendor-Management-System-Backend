@@ -13,6 +13,9 @@ public interface UserService {
 
     List<User> getAll();
     User getById(Long id);
+
+    User update(Long id, User u);
+
     void delete(Long id);
 
     LoginResponse login(LoginRequest request);

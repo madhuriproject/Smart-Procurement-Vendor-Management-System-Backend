@@ -1,6 +1,8 @@
 package com.mywaysai.smartprocurementvendormanagementsystem.service;
 
 import java.time.LocalDateTime;
+import java.util.List;
+import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
@@ -31,4 +33,44 @@ public class ApprovalServiceImpl implements ApprovalService {
         requisitionRepository.save(req);
         return approvalRepository.save(approval);
     }
+
+    @Override
+    public Optional<Approval> getById(Long id) {
+        return approvalRepository.findById(id);
+    }
+
+    @Override
+    public void delete(Long id) {
+        approvalRepository.deleteById(id);
+
+    }
+    @Override
+    public List<Approval> getByRequisitionId(Long id){
+        return approvalRepository.findByRequisitionId(id);
+    }
+
+    @Override
+    public List<Approval> getAll() {
+        return approvalRepository.findAll();
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//    public List<Requisition> getByStatus(String status){
+//        return approvalRepository.findByStatus(status);
+//    }
 }

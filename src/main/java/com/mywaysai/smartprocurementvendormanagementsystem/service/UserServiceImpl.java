@@ -57,49 +57,15 @@ public class UserServiceImpl implements UserService {
     public List<User> getAll() {
         return repository.findAll();
     }
-
-    @Override
-    public User getById(Long id) {
-        return repository.findById(id).orElseThrow();
-    }
-
-    @Override
-    public void delete(Long id) {
-        repository.deleteById(id);
-    }
-
-
-
+//
 //    @Override
-//    public User login(String email) {
-//        return repository.findByEmail(email)
-//                .orElseThrow(() -> new RuntimeException("User not found"));
+//    public User getById(Long id) {
+//        return repository.findById(id).orElseThrow();
 //    }
-
-
-
-
-
+//
 //    @Override
-//    public LoginResponse login(LoginRequest request) {
-//
-//        User user = repository.findByEmail(request.getEmail())
-//                .orElseThrow(() -> new RuntimeException("Invalid email"));
-//
-//        if (!user.getPassword().equals(request.getPassword())) {
-//            throw new RuntimeException("Invalid password");
-//        }
-//
-//        if (user.getRole() == null) {
-//            throw new RuntimeException("User role not assigned");
-//        }
-//
-//        String token = "dummy-token";
-//
-//        return new LoginResponse(
-//                token,
-//                user.getRole().getRoleName()
-//        );
+//    public void delete(Long id) {
+//        repository.deleteById(id);
 //    }
 
 
@@ -115,38 +81,7 @@ public class UserServiceImpl implements UserService {
 
 
 
-//    @Override
-//    public LoginResponse login(LoginRequest request) {
-//
-//        User user = repository.findByEmail(request.getEmail())
-//                .orElseThrow(() -> new RuntimeException("Invalid email"));
-//
-//        if (!user.getPassword().equals(request.getPassword())) {
-//            throw new RuntimeException("Invalid password");
-//        }
-//
-//        if (user.getRole() == null) {
-//            throw new RuntimeException("User role not assigned");
-//        }
-//
-//        // 🔥 IMPORTANT CHECK FOR VENDOR
-//        if (user.getRole().getRoleName().equalsIgnoreCase("VENDOR")) {
-//
-//            Vendor vendor = vendorRepository.findByEmail(user.getEmail())
-//                    .orElseThrow(() -> new RuntimeException("Vendor record not found"));
-//
-//            if (!vendor.isApproved()) {
-//                throw new RuntimeException("Vendor not approved by admin yet");
-//            }
-//        }
-//
-//        String token = "dummy-token";
-//
-//        return new LoginResponse(
-//                token,
-//                user.getRole().getRoleName()
-//        );
-//    }
+
 
 
 
@@ -164,7 +99,7 @@ public class UserServiceImpl implements UserService {
             throw new RuntimeException("User role not assigned");
         }
 
-        // 🔥 CHECK ONLY IF ROLE = VENDOR
+        //  CHECK ONLY IF ROLE = VENDOR
         if (user.getRole().getRoleName().equalsIgnoreCase("VENDOR")) {
 
             Optional<Vendor> optionalVendor = vendorRepository.findByEmail(user.getEmail());
@@ -184,8 +119,39 @@ public class UserServiceImpl implements UserService {
         }
 
         return new LoginResponse(
+
                 "dummy-token",
-                user.getRole().getRoleName()
+                user.getRole().getRoleName(),
+
+                user.getId()
         );
+    }
+
+
+    @Override
+    public User getById(Long id) {
+        return repository.findById(id)
+                .orElseThrow(() -> new RuntimeException("User not found"));
+    }
+
+    @Override
+    public User update(Long id, User u) {
+
+        User existing = repository.findById(id)
+                .orElseThrow(() -> new RuntimeException("User not found"));
+
+        existing.setUsername(u.getUsername());
+        existing.setEmail(u.getEmail());
+        existing.setPassword(u.getPassword());
+        existing.setActive(u.isActive());
+        existing.setRole(u.getRole());
+        existing.setDepartment(u.getDepartment());
+
+        return repository.save(existing);
+    }
+
+    @Override
+    public void delete(Long id) {
+        repository.deleteById(id);
     }
 }

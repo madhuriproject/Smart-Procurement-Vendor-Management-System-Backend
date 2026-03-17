@@ -12,4 +12,6 @@ public interface DeliveryService {
     List<Delivery> getAll();
 
     Delivery track(Delivery d);
+
+    List<Delivery> getByRequisition(Long id);
 }

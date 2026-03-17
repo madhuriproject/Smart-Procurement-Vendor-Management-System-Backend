@@ -1,12 +1,9 @@
 package com.mywaysai.smartprocurementvendormanagementsystem.controller;
 
 import java.util.List;
+import java.util.Optional;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.mywaysai.smartprocurementvendormanagementsystem.entity.PurchaseOrder;
 import com.mywaysai.smartprocurementvendormanagementsystem.service.PurchaseOrderService;
@@ -20,16 +17,35 @@ public class PurchaseOrderController {
 
     private final PurchaseOrderService service;
 
-    @PostMapping("/{vendorId}")
-    public PurchaseOrder create(@PathVariable Long vendorId){
-        return service.create(vendorId);
+    @PostMapping
+    public PurchaseOrder create( @RequestParam Long vendorId,
+                                 @RequestParam Long requisitionId){
+        return service.create(vendorId,requisitionId);
     }
 
     @GetMapping
     public List<PurchaseOrder> all(){
         return service.all();
     }
-}
+
+
+    @GetMapping("/{id}")
+    public Optional<PurchaseOrder> getById(@PathVariable Long id){
+        return service.getById(id);
+    }
+
+
+    @GetMapping("/requisition/{id}")
+    public List<PurchaseOrder> getByRequisition(@PathVariable Long id) {
+        return service.getByRequisition(id);
+    }
+    }
+
+
+
+
+
+
 
 
 

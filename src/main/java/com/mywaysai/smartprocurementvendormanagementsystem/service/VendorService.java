@@ -9,5 +9,11 @@ public interface VendorService {
     List<Vendor> getAll();
 
     Vendor approveVendor(Long id);
+
+    Vendor getById(Long id);
+
+    Vendor update(Long id, Vendor v);
+
+    void delete(Long id);
 }
 

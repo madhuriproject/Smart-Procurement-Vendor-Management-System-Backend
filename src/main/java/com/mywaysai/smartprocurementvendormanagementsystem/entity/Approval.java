@@ -2,12 +2,7 @@ package com.mywaysai.smartprocurementvendormanagementsystem.entity;
 
 import java.time.LocalDateTime;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToOne;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -25,7 +20,31 @@ public class Approval {
     @Column(columnDefinition = "DATETIME")
     private LocalDateTime approvedDate;
 
-    @OneToOne
+   // @OneToOne
+
+    @ManyToOne
+    @JoinColumn(name = "requisition_id")
     private Requisition requisition;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }
 

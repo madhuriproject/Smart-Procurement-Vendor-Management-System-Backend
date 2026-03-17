@@ -41,6 +41,12 @@ import java.util.List;
         public Delivery track(Delivery d){
             return repository.save(d);
         }
+
+
+
+        public List<Delivery> getByRequisition(Long requisitionId){
+            return repository.findByPurchaseOrderRequisitionId(requisitionId);
+        }
     }
 
 

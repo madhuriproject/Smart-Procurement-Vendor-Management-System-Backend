@@ -2,11 +2,7 @@ package com.mywaysai.smartprocurementvendormanagementsystem.controller;
 
 import java.util.List;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.mywaysai.smartprocurementvendormanagementsystem.entity.Role;
 import com.mywaysai.smartprocurementvendormanagementsystem.service.RoleService;
@@ -28,5 +24,21 @@ public class RoleController {
     @GetMapping
     public List<Role> list(){
         return service.list();
+    }
+
+
+    @GetMapping("/{id}")
+    public Role getById(@PathVariable Long id){
+        return service.getById(id);
+    }
+
+    @PutMapping("/{id}")
+    public Role update(@PathVariable Long id,@RequestBody Role r){
+        return service.update(id,r);
+    }
+
+    @DeleteMapping("/{id}")
+    public void delete(@PathVariable Long id){
+        service.delete(id);
     }
 }
