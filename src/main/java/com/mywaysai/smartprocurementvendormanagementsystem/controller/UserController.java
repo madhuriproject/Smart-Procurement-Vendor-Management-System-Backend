@@ -1,5 +1,10 @@
 package com.mywaysai.smartprocurementvendormanagementsystem.controller;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.util.List;
 
 import com.mywaysai.smartprocurementvendormanagementsystem.dto.LoginRequest;
@@ -11,6 +16,7 @@ import com.mywaysai.smartprocurementvendormanagementsystem.entity.User;
 import com.mywaysai.smartprocurementvendormanagementsystem.service.UserService;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.web.multipart.MultipartFile;
 
 @RestController
 @RequestMapping("/users")
@@ -25,6 +31,32 @@ public class UserController {
     public User save(@RequestBody User u){
         return service.createUser(u);
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+//    @PostMapping
+//    public User save(
+//            @RequestParam("username") String username,
+//            @RequestParam("email") String email,
+//            @RequestParam("password") String password,
+//            @RequestParam("roleId") Long roleId,
+//            @RequestParam("departmentId") Long departmentId,
+//            @RequestParam(value = "file", required = false) MultipartFile file
+//    ) throws IOException {
+//
+//        //  Only pass data to service
+//        return service.createUser(username, email, password, roleId, departmentId, file);
+//    }
 
     @GetMapping
     public List<User> all(){

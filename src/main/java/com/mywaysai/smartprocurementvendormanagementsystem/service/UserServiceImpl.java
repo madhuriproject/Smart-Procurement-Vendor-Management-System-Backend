@@ -1,5 +1,10 @@
 package com.mywaysai.smartprocurementvendormanagementsystem.service;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.util.List;
 import java.util.Optional;
 
@@ -17,6 +22,7 @@ import com.mywaysai.smartprocurementvendormanagementsystem.entity.User;
 import com.mywaysai.smartprocurementvendormanagementsystem.repository.UserRepository;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.web.multipart.MultipartFile;
 
 @Service
 @RequiredArgsConstructor
@@ -50,9 +56,62 @@ public class UserServiceImpl implements UserService {
 
         user1.setDepartment(department);
         user1.setRole(role);
-
+       // user1.setProfileImage(user.getProfileImage());
         return repository.save(user1);
     }
+
+
+
+
+
+//    @Override
+//    public User createUser(String username,
+//                           String email,
+//                           String password,
+//                           Long roleId,
+//                           Long departmentId,
+//                           MultipartFile file) throws IOException {
+//
+//        User user = new User();
+//        user.setUsername(username);
+//        user.setEmail(email);
+//        user.setPassword(password);
+//        user.setActive(true);
+//
+//        //  Role
+//        Role role = roleRepository.findById(roleId)
+//                .orElseThrow(() -> new RuntimeException("Role not found"));
+//
+//        //  Department
+//        Department department = departmentRepository.findById(departmentId)
+//                .orElseThrow(() -> new RuntimeException("Department not found"));
+//
+//        user.setRole(role);
+//        user.setDepartment(department);
+//
+//        //  Image Upload Logic
+//        if (file != null && !file.isEmpty()) {
+//
+//            String fileName = System.currentTimeMillis() + "_" + file.getOriginalFilename();
+//
+//            String uploadDir = "uploads/";
+//            File dir = new File(uploadDir);
+//            if (!dir.exists()) dir.mkdirs();
+//
+//            Files.copy(
+//                    file.getInputStream(),
+//                    Paths.get(uploadDir + fileName),
+//                    StandardCopyOption.REPLACE_EXISTING
+//            );
+//
+//            user.setProfileImage(fileName);
+//
+//        } else {
+//            user.setProfileImage("default.png");
+//        }
+//
+//        return repository.save(user);
+//    }
     @Override
     public List<User> getAll() {
         return repository.findAll();
