@@ -9,7 +9,7 @@ import com.mywaysai.smartprocurementvendormanagementsystem.entity.Invoice;
 import java.util.List;
 
 @RestController
-@RequestMapping("/invoice")
+@RequestMapping("/api/invoice")
 //@RequiredArgsConstructor
 public class InvoiceController {
 

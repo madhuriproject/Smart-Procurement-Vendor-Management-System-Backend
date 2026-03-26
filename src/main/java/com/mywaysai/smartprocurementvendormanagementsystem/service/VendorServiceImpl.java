@@ -39,7 +39,7 @@ public Vendor register(Vendor vendor) {
     user.setPassword(vendor.getPassword());
     user.setUsername(vendor.getCompanyName());
     user.setActive(true);
-    user.setPassword(vendor.getPassword());
+    //user.setPassword(vendor.getPassword());
     Role vendorRole = roleRepository.findByRoleName("VENDOR");
     user.setRole(vendorRole);
     Department dept = departmentRepository.findById(1L)
