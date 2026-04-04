@@ -72,5 +72,12 @@ public class VendorRatingController {
             "averageScore", average
         ));
     }
+
+    @PostMapping("/admin/delete/{vendorId}")
+    public ResponseEntity<Boolean> deleteRatingsByVendor(@PathVariable Long vendorId) {
+        return ResponseEntity.ok(service.deleteRating(vendorId));
+    }
+
+
 }
 

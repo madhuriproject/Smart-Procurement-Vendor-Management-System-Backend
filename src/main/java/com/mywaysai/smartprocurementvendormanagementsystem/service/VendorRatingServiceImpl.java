@@ -68,6 +68,7 @@ import java.util.List;
             return ratingRepository.save(rating);
         }
 
+        @Override
         public VendorRating createAdminRating(VendorRatingRequest request) {
             if (!request.isAdminRating()) {
                 throw new RuntimeException("This must be marked as admin rating");
@@ -92,18 +93,21 @@ import java.util.List;
             return ratingRepository.save(rating);
         }
 
+        @Override
         public List<VendorRating> getAdminRatings() {
             return ratingRepository.findAll().stream()
                     .filter(VendorRating::isAdminRating)
                     .toList();
         }
 
+        @Override
         public List<VendorRating> getRatingsByVendor(Long vendorId) {
             return ratingRepository.findAll().stream()
                     .filter(r -> r.getVendor().getId().equals(vendorId))
                     .toList();
         }
 
+        @Override
         public double calculateAverageScore(Long vendorId) {
             List<VendorRating> ratings = getRatingsByVendor(vendorId);
             if (ratings.isEmpty()) return 0.0;
@@ -111,6 +115,19 @@ import java.util.List;
                     .mapToDouble(r -> (r.getQualityScore() + r.getDeliveryScore() + r.getPriceScore()) / 3.0)
                     .average()
                     .orElse(0.0);
+        }
+
+        @Override
+        public Boolean deleteRating(Long vendorId){
+            List<VendorRating> ratings = getRatingsByVendor(vendorId);
+            if(!ratings.isEmpty()){
+                for(VendorRating r : ratings){
+                    ratingRepository.delete(r);
+                }
+                return true;
+            }
+
+            return false;
         }
 
         @Override
