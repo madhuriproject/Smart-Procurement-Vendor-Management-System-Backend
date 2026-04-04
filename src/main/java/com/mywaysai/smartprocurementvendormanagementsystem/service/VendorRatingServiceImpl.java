@@ -44,6 +44,12 @@ import java.util.List;
             this.userRepository = userRepository;
         }
 
+        public Long getVendorId(String email){
+            Vendor v = vendorRepository.findByEmail(email)
+                    .orElseThrow(() -> new RuntimeException("Vendor not found with email: " + email));
+            return v.getId();
+        }
+
         @Override
         public VendorRating createRating(VendorRatingRequest request) {
 

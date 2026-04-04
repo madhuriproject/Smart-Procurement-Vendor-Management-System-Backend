@@ -3,6 +3,7 @@ package com.mywaysai.smartprocurementvendormanagementsystem.controller;
 import com.mywaysai.smartprocurementvendormanagementsystem.dto.VendorRatingRequest;
 import com.mywaysai.smartprocurementvendormanagementsystem.entity.VendorRating;
 import com.mywaysai.smartprocurementvendormanagementsystem.service.VendorRatingServiceImpl;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -76,6 +77,12 @@ public class VendorRatingController {
     @PostMapping("/admin/delete/{vendorId}")
     public ResponseEntity<Boolean> deleteRatingsByVendor(@PathVariable Long vendorId) {
         return ResponseEntity.ok(service.deleteRating(vendorId));
+    }
+
+    @GetMapping("/admin/getVendorId")
+    public ResponseEntity<Long> getVendorId(@RequestParam String email){
+        Long vendorId = service.getVendorId(email);
+        return ResponseEntity.ok(vendorId);
     }
 
 

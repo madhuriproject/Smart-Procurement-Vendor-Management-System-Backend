@@ -119,11 +119,12 @@ public class UserServiceImpl implements UserService {
         }
 
         return new LoginResponse(
-
                 "dummy-token",
                 user.getRole().getRoleName(),
-
-                user.getId()
+                user.getId(),
+                vendorRepository.findByEmail(user.getEmail())
+                        .map(Vendor::getId)
+                        .orElse(null)
         );
     }
 
