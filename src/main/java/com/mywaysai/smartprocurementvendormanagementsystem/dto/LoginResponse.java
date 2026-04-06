@@ -22,12 +22,14 @@ public class LoginResponse {
 
     private String token;
     private String role;
-    private Long id;   // ADDED
+    private Long id;
+    private Long vendorId;
 
-    public LoginResponse(String token, String role, Long id) {
+    public LoginResponse(String token, String role, Long id, Long vendorId) {
         this.token = token;
         this.role = role;
         this.id = id;
+        this.vendorId = vendorId;
     }
 
     public String getToken() {
@@ -41,4 +43,6 @@ public class LoginResponse {
     public Long getId() {   //  ADDED
         return id;
     }
+
+    public Long getVendorId() { return vendorId; }
 }
